@@ -309,8 +309,12 @@ function log() {
 						return false;
 					}
 				}
+
+				if(jsonData.message === undefined && jsonData.msg !== undefined) {
+					jsonData.message = jsonData.msg;
+				}
 				
-				if(jsonData.status == "success"){
+				if(jsonData.status == "success" || jsonData.status > 0){
 					/* Redirects to the Page if variable is set from server side
 					 * Example : jsonData.redirect = "http://google.com"
 					 */
@@ -330,7 +334,7 @@ function log() {
 					that.showCustomMessage(jsonData.message);
 					if(typeof that.settings.onSuccess !== "undefined") that.settings.onSuccess(jsonData, that.element);
 				}
-				else if(jsonData.status == "error"){
+				else if(jsonData.status == "error" || jsonData.status < 0){
 					var ele = jsonData.elements;
 					//Shows the elements with error
 					that.showElementErrors(ele);
@@ -400,6 +404,10 @@ function log() {
 							that.afterSubmit(jsonData, that.element);
 							return false;
 						}
+					}
+
+					if(jsonData.message === undefined && jsonData.msg !== undefined) {
+						jsonData.message = jsonData.msg;
 					}
 
 					that.showElementErrors(jsonData);
@@ -602,13 +610,17 @@ function log() {
 					}
 				}
 
+				if(jsonData.message === undefined && jsonData.msg !== undefined) {
+					jsonData.message = jsonData.msg;
+				}
+
 				/*
 				 Save Response in for cache
 				*/
 				that.response = jsonData;
 				that.settings.completedOnce = true;
 			
-				if(jsonData.status == "success"){
+				if(jsonData.status == "success" || jsonData.status > 0){
 					/* Redirects to the Page if variable is set from server side
 					 * Example : jsonData.redirect = "http://google.com"
 					 */
@@ -624,7 +636,7 @@ function log() {
 
 					if(typeof that.settings.onSuccess !== "undefined") that.settings.onSuccess(jsonData, that.element);
 				}
-				else if(jsonData.status == "error"){
+				else if(jsonData.status == "error" || jsonData.status < 0){
 					if(that.settings.onError != null) that.settings.onError(jsonData, that.element);
 				}
 				that.afterSubmit();
@@ -797,8 +809,12 @@ function log() {
 						return false;
 					}
 				}
+
+				if(jsonData.message === undefined && jsonData.msg !== undefined) {
+					jsonData.message = jsonData.msg;
+				}
 			
-				if(jsonData.status == "success"){
+				if(jsonData.status == "success" || jsonData.status > 0){
 					/* Redirects to the Page if variable is set from server side
 					 * Example : jsonData.redirect = "http://google.com"
 					 */
@@ -814,7 +830,7 @@ function log() {
 
 					if(typeof that.settings.onSuccess !== "undefined") that.settings.onSuccess(jsonData, that.element);
 				}
-				else if(jsonData.status == "error"){
+				else if(jsonData.status == "error" || jsonData.status < 0){
 					if(that.settings.onError != null) that.settings.onError(jsonData, that.element);
 				}
 				that.afterSubmit();
